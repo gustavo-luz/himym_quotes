@@ -1,3 +1,4 @@
+from multiprocessing.sharedctypes import Value
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -47,19 +48,19 @@ def main():
     df['first'] = df['raw_data']
     #split the phrase and name of char
     df['first']= df['raw_data'].str.strip('<li>').str.strip('“')
-
-    df[['quote','char']] = ''
+    
+    #create empty columns that will be populated
+    df[['quote','char','unique_char']] = ''
     print(df)
 
     stop_words = ["</","<em>","</em>","em>",'"','”',', ref']
 
     char_dict = {
-        "Barney","Barney Stinson",
-        "Lily","Lily Aldrin",
-        "Robin","Robin Scherbatsky",
-        "Ted","Ted Mosby",
-        "Marshall","Marshall Eriksen"
-
+        "Barney":"Barney Stinson",
+        "Lily":"Lily Aldrin",
+        "Robin":"Robin Scherbatsky",
+        "Ted":"Ted Mosby",
+        "Marshall":"Marshall Eriksen"
     }
 
     for i in range(len(df)):
@@ -76,13 +77,21 @@ def main():
 
         df['char'].iloc[i] = df['first'].iloc[i].split("—")[-1].replace('a>','').strip(" ")
         df['char'].iloc[i] = re.sub('<.*?>', '', df['char'].iloc[i].split("—")[0])
-    #criar um regex pra ver qual personagem falou o que
-    # 
+
+        #116 117 128: nome aparecendo no inicio da string
+        print(len(char_dict))
+        for key in range(len(char_dict)):
+
+            if list(char_dict.keys())[key] in df['char'].iloc[i]:
+
+                df['unique_char'].iloc[i] = list(char_dict.values())[key]
+    
     #remover as que estão sem personagem e a penny mosby
+
 
     #tirar as do barney machistas
 
-    #116 117 128: nome aparecendo no inicio da string
+ 
 
     print(df)
     print(type(df['raw_data']))
