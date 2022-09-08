@@ -125,7 +125,7 @@ def main():
 
     df = df.dropna()
 
-    df = df[['quote','unique_char']] 
+    #df = df[['quote','unique_char']] 
 
     print(df['quote'].loc[4])
 
