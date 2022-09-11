@@ -13,14 +13,14 @@ def main():
     access_token_secret = credentials.ACCESS_TOKEN_SECRET
 
 
-    interval = 15#60 * 60 * 24
+    interval = 60#60 * 60 * 24
 
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret_key)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
 
     while True:
-        print('getting a random quote...')   
+        print(f'getting a random quote every {interval} seconds...')   
         yourtweet = subprocess.check_output(['python', 'select_quote.py'])
         yourtweet = yourtweet.decode('utf-8')
         print(yourtweet)
