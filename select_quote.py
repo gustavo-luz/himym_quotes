@@ -1,8 +1,24 @@
 import pandas as pd
+import tweepy
+import time
+import credentials
+from os import environ
+
+"""
+consumer_key = environ['API_KEY']
+consumer_secret_key = environ['API_SECRET_KEY']
+access_token = environ['ACCESS_TOKEN']
+access_token_secret = environ['ACCESS_TOKEN_SECRET']
+"""
+
+
 
 
 
 def main():
+
+
+            
     df = pd.read_csv('himym_quotes.csv')
     df = df[['quote','unique_char']] 
 
@@ -31,11 +47,15 @@ def main():
     df.to_csv('himym_quotes.csv', index=False)
 
     ##send to the api the quote of day
+    tweet = f'"{day_quote}" , {day_char}'
+    print(tweet)
     post_json = f'{{"quote":"{day_quote}","char": "{day_char}"}}'
     #post_json = dict(((k, eval(k)) for k in (day_quote, day_char)))
-    print(post_json)
-    print(type(post_json))
-    return post_json
+    #print(post_json)
+    #print(type(post_json))
+
+
+    return post_json,tweet
 
 
 

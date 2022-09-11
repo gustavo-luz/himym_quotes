@@ -122,12 +122,15 @@ def main():
     rows_2_remove = rows_2_remove[::-1]
     print(rows_2_remove)
     df = df.drop(df.index[rows_2_remove])
-
     df = df.dropna()
+    
+    #remove strings not regognized as na
+    mask = (df['unique_char'].str.len() > 2)
+    df = df.loc[mask]
+    df = df[['quote','unique_char']] 
 
-    #df = df[['quote','unique_char']] 
-
-    print(df['quote'].loc[4])
+    #df['quote'] = df['quote'][1:-1] 
+    df.quote.str.rstrip()
 
     df.to_csv('himym_quotes.csv', index=False)
 

@@ -139,3 +139,6 @@ dmypy.json
 cython_debug/
 11
 python gitignoreShell/Bash By Cookie_Wookie_7 on Mar 23 2022 ThankComment
+
+test.py
+credentials.py
