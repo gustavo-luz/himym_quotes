@@ -38,7 +38,7 @@ def main():
 
     df = df.explode("raw_data")
 
-    print(df['raw_data'][0])
+    #print(df['raw_data'][0])
 
     df['first'] = df['raw_data']
 
@@ -52,7 +52,7 @@ def main():
     
     #create empty columns that will be populated
     df[['quote','char','unique_char']] = ''
-    print(df)
+    
 
     stop_words = ["</","<em>","</em>","em>",'"','”',', ref','a>']
 
@@ -75,7 +75,8 @@ def main():
         'The biggest case of my life and I’d already lost the jury. I mean, I’ve heard of Twelve Angry Men, but this was more like ‘Twelve Horny Women.',
         'You guys bangin’? Keep goin’, I’m not even here. But just for the record? Having a baby? Big mistake. ',
         'I can’t wait to tell the gang. This is one of those moments you dream about! Guys… Lily and I… are having unprotected sex. I just got the chills.',
-        'There’s three rules of cheating: One — it’s not cheating if you’re not the one who’s married. Two — it’s not cheating if her name has two adjacent vowels. Three — and it’s not cheating if she’s from a different area code.'
+        'There’s three rules of cheating: One — it’s not cheating if you’re not the one who’s married. Two — it’s not cheating if her name has two adjacent vowels. Three — and it’s not cheating if she’s from a different area code.',
+        'Yeah, I wasn’t really listening either. Ted can really go on about a bitch. '
      ]
 
     rows_2_remove = []
@@ -94,7 +95,7 @@ def main():
             len_multiple_= len(df['first'].iloc[i].split("—"))
             #print(len_multiple_,df['first'].iloc[i].split("—"))
             df['quote'].iloc[i] = ("—".join(df['quote'].iloc[i].split("—")[0:(len_multiple_ - 1)]))
-            print(i,len_multiple_,df['quote'].loc[i])
+            #print(i,len_multiple_,df['quote'].loc[i])
         
         
         df['char'].iloc[i] = df['first'].iloc[i].split("—")[-1].replace('a>','').strip(" ")
@@ -113,24 +114,25 @@ def main():
         #if any(innapropriate_quotes) in df['quote'].iloc[i]:
         if any(x in df['quote'].iloc[i] for x in innapropriate_quotes):
             #df['quote'].iloc[i] = np.NaN
-            print(df['quote'].iloc[i])
+            #print(df['quote'].iloc[i])
             rows_2_remove.append(i)
 
     
     #remover as que estão sem personagem e a penny mosby 102,131
     #invert the list and remove index of df backwards
     rows_2_remove = rows_2_remove[::-1]
-    print(rows_2_remove)
+    #print(rows_2_remove)
     df = df.drop(df.index[rows_2_remove])
     df = df.dropna()
-    
-    #remove strings not regognized as na
-    mask = (df['unique_char'].str.len() > 2)
+    df['tweet'] = df['quote'] + df['unique_char']   
+    #remove strings not regognized as na and tweets bigger than max lenght
+    mask = (df['unique_char'].str.len() > 2) & (df['tweet'].str.len() < 275)
     df = df.loc[mask]
-    df = df[['quote','unique_char']] 
+    df = df[['quote','unique_char','tweet']] 
 
     #df['quote'] = df['quote'][1:-1] 
     df.quote.str.rstrip()
+    print(df)
 
     df.to_csv('himym_quotes.csv', index=False)
 

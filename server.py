@@ -5,7 +5,7 @@ import tweet_bot
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/generate")
 def home():
     tweet_bot.main()
     return "Tweeting a HIMYM Quote..."
