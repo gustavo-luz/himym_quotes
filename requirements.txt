@@ -1,2 +1,10 @@
 tweepy
 flask
+pandas
+numpy
+requests
+bs4
+time
+subprocess
+datetime
+
