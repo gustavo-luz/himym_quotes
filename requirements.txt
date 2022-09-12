@@ -2,7 +2,6 @@ tweepy
 flask
 pandas
 numpy
-time
 subprocess
 datetime
 
