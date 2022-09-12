@@ -2,5 +2,5 @@ tweepy
 flask
 pandas
 numpy
-subprocess
+subprocess.run
 
