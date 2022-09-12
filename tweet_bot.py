@@ -1,8 +1,8 @@
 import pandas as pd
 import tweepy
 import time
-import credentials
-import sys
+#import credentials
+#import sys
 from os import environ
 import subprocess
 from datetime import datetime
@@ -11,14 +11,14 @@ from datetime import datetime
 def main():
 
 
-    consumer_key = credentials.API_KEY
-    consumer_secret_key = credentials.API_SECRET_KEY
-    access_token = credentials.ACCESS_TOKEN
-    access_token_secret = credentials.ACCESS_TOKEN_SECRET
-    #consumer_key = environ['API_KEY']
-    #consumer_secret_key = environ['API_SECRET_KEY']
-    #access_token = environ['ACCESS_TOKEN']
-    #access_token_secret = environ['ACCESS_TOKEN_SECRET']
+    #consumer_key = credentials.API_KEY
+    #consumer_secret_key = credentials.API_SECRET_KEY
+    #access_token = credentials.ACCESS_TOKEN
+    #access_token_secret = credentials.ACCESS_TOKEN_SECRET
+    consumer_key = environ['API_KEY']
+    consumer_secret_key = environ['API_SECRET_KEY']
+    access_token = environ['ACCESS_TOKEN']
+    access_token_secret = environ['ACCESS_TOKEN_SECRET']
 
     interval = 20#60 * 60 * 24
 
