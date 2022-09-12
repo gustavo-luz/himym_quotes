@@ -1,7 +1,7 @@
 import pandas as pd
 import tweepy
 import time
-import credentials
+#import credentials
 from os import environ
 
 """
