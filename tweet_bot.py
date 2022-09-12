@@ -20,7 +20,7 @@ def main():
     access_token = environ['ACCESS_TOKEN']
     access_token_secret = environ['ACCESS_TOKEN_SECRET']
 
-    interval = 20#60 * 60 * 24
+    interval = 60 * 60 #* 24
 
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret_key)
     auth.set_access_token(access_token, access_token_secret)
